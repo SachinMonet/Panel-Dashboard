@@ -1,0 +1,70 @@
+<main class="dashboard-main">
+    <div class="dashboard-container">
+        <div class="dashboard-header">
+            <h2 class="dashboard-title">Dashboard</h2>
+            <p class="dashboard-subtitle">Overview of your panel management system</p>
+        </div>
+
+        <!-- Stat cards -->
+        <div class="stats-grid">
+            <div class="card" *ngFor="let card of statCards">
+                <div class="card-icon-row">
+                    <div class="card-icon" [ngClass]="'card-icon-' + card.color">
+                        <lucide-icon [name]="card.icon" class="icon"></lucide-icon>
+                    </div>
+                </div>
+                <div class="card-value">{{ card.value }}</div>
+                <div class="card-label">{{ card.label }}</div>
+                <div class="card-meta">{{ card.meta }}</div>
+            </div>
+        </div>
+
+        <div class="bottom-grid">
+            <!-- Recent Campaigns -->
+            <div class="panel">
+                <h3 class="panel-title">Recent Campaigns</h3>
+                <div class="list">
+                    <div class="list-item" *ngFor="let c of campaigns">
+                        <div class="list-item-header">
+                            <div>
+                                <p class="list-item-title">{{ c.title }}</p>
+                                <p class="list-item-subtitle">{{ c.code }}</p>
+                            </div>
+                            <span class="badge" [ngClass]="c.status === 'active' ? 'badge-green' : 'badge-yellow'">
+                                {{ c.status }}
+                            </span>
+                        </div>
+                        <div class="list-item-row">
+                            <span class="list-item-text">{{ c.completes }}</span>
+                            <span class="list-item-strong">{{ c.percent }}%</span>
+                        </div>
+                        <div class="progress">
+                            <div class="progress-bar" [style.width.%]="c.percent"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Provider Performance -->
+            <div class="panel">
+                <h3 class="panel-title">Provider Performance</h3>
+                <div class="list">
+                    <div class="provider-item" *ngFor="let p of providers">
+                        <div>
+                            <p class="list-item-title">{{ p.name }}</p>
+                            <p class="list-item-subtitle">{{ p.completes }}</p>
+                        </div>
+                        <div class="provider-right">
+                            <div class="provider-quality">
+                                <lucide-icon name="circle-check-big" class="icon icon-small icon-green">
+                                </lucide-icon>
+                                <span class="provider-quality-text">{{ p.quality }}</span>
+                            </div>
+                            <p class="list-item-text">Avg CPI: {{ p.avgCpi }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>

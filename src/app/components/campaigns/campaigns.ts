@@ -1,0 +1,115 @@
+import { CommonModule } from '@angular/common';
+import { Component } from '@angular/core';
+import { LucideAngularModule } from 'lucide-angular';
+import { LucideModule } from '../../lucide/lucide-module';
+
+@Component({
+  selector: 'app-campaigns',
+  imports: [LucideModule, LucideAngularModule, CommonModule],
+  templateUrl: './campaigns.html',
+  styleUrl: './campaigns.scss',
+})
+export class Campaigns {
+
+  addButton = {
+    icon: 'plus',
+    label: 'Create Campaign'
+  };
+
+  filters = {
+    searchPlaceholder: 'Search campaigns...',
+    statusOptions: ['All Status', 'Active', 'Paused', 'Completed'],
+    sortOptions: ['Sort by: Recent', 'Sort by: Name', 'Sort by: Progress']
+  };
+
+  campaigns: CampaignCard[] = [
+    {
+      title: 'Consumer Behavior Study Q1',
+      code: 'C-2024-089',
+      status: 'active',
+      progressLabel: '750 / 1000 completes',
+      progressPercent: 75,
+      providers: 3,
+      avgCpi: '$3.25',
+      totalSpend: '$2437.50'
+    },
+    {
+      title: 'Product Satisfaction Survey',
+      code: 'C-2024-090',
+      status: 'active',
+      progressLabel: '225 / 500 completes',
+      progressPercent: 45,
+      providers: 2,
+      avgCpi: '$2.80',
+      totalSpend: '$630.00'
+    },
+    {
+      title: 'Brand Awareness Research',
+      code: 'C-2024-091',
+      status: 'paused',
+      progressLabel: '240 / 800 completes',
+      progressPercent: 30,
+      providers: 2,
+      avgCpi: '$4.10',
+      totalSpend: '$984.00'
+    },
+    {
+      title: 'Market Segmentation Analysis',
+      code: 'C-2024-092',
+      status: 'active',
+      progressLabel: '1080 / 1200 completes',
+      progressPercent: 90,
+      providers: 4,
+      avgCpi: '$3.50',
+      totalSpend: '$3780.00'
+    },
+    {
+      title: 'Customer Experience Feedback',
+      code: 'C-2024-093',
+      status: 'completed',
+      progressLabel: '600 / 600 completes',
+      progressPercent: 100,
+      providers: 2,
+      avgCpi: '$2.90',
+      totalSpend: '$1740.00'
+    }
+  ];
+
+  // actions per status
+  primaryActionIcon(status: CampaignStatus): string {
+    if (status === 'paused') return 'play';
+    return 'pause';
+  }
+
+  primaryActionLabel(status: CampaignStatus): string {
+    if (status === 'paused') return 'Resume';
+    if (status === 'completed') return 'View';
+    return 'Pause';
+  }
+
+  showPrimary(status: CampaignStatus): boolean {
+    return status !== 'completed';
+  }
+
+  badgeClass(status: CampaignStatus): string {
+    if (status === 'active') return 'badge badge--green';
+    if (status === 'paused') return 'badge badge--yellow';
+    return 'badge badge--blue';
+  }
+
+}
+
+type CampaignStatus = 'active' | 'paused' | 'completed';
+
+interface CampaignCard {
+  title: string;
+  code: string;
+  status: CampaignStatus;
+  progressLabel: string;
+  progressPercent: number;
+  providers: number;
+  avgCpi: string;
+  totalSpend: string;
+}
+
+
