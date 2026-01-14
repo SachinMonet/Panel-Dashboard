@@ -23,7 +23,7 @@
         <span class="search-icon">
           <lucide-icon name="search"></lucide-icon>
         </span>
-        <input type="text" [placeholder]="filters.searchPlaceholder" class="search-input" />
+        <input type="text" [placeholder]="filters.searchPlaceholder" class="search-input" [(ngModel)]="searchFilterBykey" (keyup)="searchFilter($event)" />
       </div>
 
       <select class="select">
@@ -41,7 +41,7 @@
 
     <!-- Cards grid -->
     <div class="campaigns-grid">
-      @for (c of campaigns; track $index) {
+      @for (c of filteredRows; track $index) {
       <div class="campaign-card">
         <div class="campaign-card-header">
           <div class="campaign-card-title-block">

@@ -21,7 +21,7 @@
         <span class="search-icon">
           <lucide-icon name="search"></lucide-icon>
         </span>
-        <input type="text" [placeholder]="filters.searchPlaceholder" class="search-input" />
+        <input type="text" [placeholder]="filters.searchPlaceholder" class="search-input" [(ngModel)]="searchFilterBykey" (keyup)="searchFilter($event)" />
       </div>
 
       <select class="select">
@@ -46,7 +46,7 @@
         </thead>
 
         <tbody>
-          @for( p of providers; track $index){<tr class="row">
+          @for( p of filteredRows; track $index){<tr class="row">
             <td>
               <div class="provider-cell">
                 <p class="provider-name">{{ p.name }}</p>

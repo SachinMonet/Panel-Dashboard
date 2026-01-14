@@ -1,16 +1,20 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { LucideAngularModule } from 'lucide-angular';
 import { LucideModule } from '../../lucide/lucide-module';
+import { Login } from '../login';
+import { FormsModule } from '@angular/forms';
+
 
 @Component({
   selector: 'app-campaigns',
-  imports: [LucideModule, LucideAngularModule, CommonModule],
+  imports: [LucideModule, LucideAngularModule, CommonModule,FormsModule],
   templateUrl: './campaigns.html',
   styleUrl: './campaigns.scss',
 })
-export class Campaigns {
-
+export class Campaigns implements OnInit {
+  filteredRows: any
+  searchFilterBykey:any
   addButton = {
     icon: 'plus',
     label: 'Create Campaign'
@@ -75,6 +79,20 @@ export class Campaigns {
     }
   ];
 
+  constructor(private login: Login) {
+
+   }
+
+   ngOnInit() {
+    this.filteredRows = this.campaigns;
+  }
+
+ searchFilter(event: any) {
+  const term = (event.target?.value || '').trim();
+  this.filteredRows = this.login.filterBySearch(this.campaigns, term);
+}
+
+
   // actions per status
   primaryActionIcon(status: CampaignStatus): string {
     if (status === 'paused') return 'play';
@@ -110,6 +128,12 @@ interface CampaignCard {
   providers: number;
   avgCpi: string;
   totalSpend: string;
+}
+
+interface Row {
+  id: number;
+  name: string;
+  status: string;
 }
 
 

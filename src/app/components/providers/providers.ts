@@ -2,14 +2,17 @@ import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { LucideModule } from '../../lucide/lucide-module';
 import { LucideAngularModule } from 'lucide-angular';
+import { FormsModule } from '@angular/forms';
+import { Login } from '../login';
 
 @Component({
   selector: 'app-providers',
-  imports: [CommonModule, LucideModule, LucideAngularModule],
+  imports: [CommonModule, LucideModule, LucideAngularModule,FormsModule],
   templateUrl: './providers.html',
   styleUrl: './providers.scss',
 })
 export class Providers {
+  searchFilterBykey: any;
   addButton = {
     icon: 'plus',
     label: 'Add Provider'
@@ -79,6 +82,10 @@ export class Providers {
   ];
 
   actionIcons = ['square-pen', 'EllipsisVertical'] as const;
+filteredRows: any
+  constructor(private login: Login) {
+    this.filteredRows = this.providers
+  }
 
   getStatusBadgeClass(status: ProviderRow['status']): string {
     if (status === 'active') return 'badge badge--green';
@@ -92,8 +99,16 @@ export class Providers {
     return 'icon-status icon-status--gray';
   }
 
+  searchFilter(event: any) {
+ //console.log(this.searchFilterBykey);
+  this.filteredRows = this.login.filterBySearch(this.providers, this.searchFilterBykey);
+}
+
+
 
 }
+
+
 
 interface ProviderRow {
   name: string;
