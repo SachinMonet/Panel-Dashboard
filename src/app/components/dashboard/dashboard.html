@@ -7,7 +7,8 @@
 
         <!-- Stat cards -->
         <div class="stats-grid">
-            <div class="card" *ngFor="let card of statCards">
+            @for (card of statCards; track $index){
+            <div class="card">
                 <div class="card-icon-row">
                     <div class="card-icon" [ngClass]="'card-icon-' + card.color">
                         <lucide-icon [name]="card.icon" class="icon"></lucide-icon>
@@ -17,6 +18,7 @@
                 <div class="card-label">{{ card.label }}</div>
                 <div class="card-meta">{{ card.meta }}</div>
             </div>
+            }
         </div>
 
         <div class="bottom-grid">
@@ -24,7 +26,7 @@
             <div class="panel">
                 <h3 class="panel-title">Recent Campaigns</h3>
                 <div class="list">
-                    <div class="list-item" *ngFor="let c of campaigns">
+                @for(c of campaigns ; track $index){ <div class="list-item">
                         <div class="list-item-header">
                             <div>
                                 <p class="list-item-title">{{ c.title }}</p>
@@ -42,6 +44,7 @@
                             <div class="progress-bar" [style.width.%]="c.percent"></div>
                         </div>
                     </div>
+                }
                 </div>
             </div>
 
@@ -49,7 +52,7 @@
             <div class="panel">
                 <h3 class="panel-title">Provider Performance</h3>
                 <div class="list">
-                    <div class="provider-item" *ngFor="let p of providers">
+                @for(p of providers; track $index){ <div class="provider-item">
                         <div>
                             <p class="list-item-title">{{ p.name }}</p>
                             <p class="list-item-subtitle">{{ p.completes }}</p>
@@ -63,6 +66,7 @@
                             <p class="list-item-text">Avg CPI: {{ p.avgCpi }}</p>
                         </div>
                     </div>
+                }
                 </div>
             </div>
         </div>

@@ -25,7 +25,8 @@
       </div>
 
       <select class="select">
-        <option *ngFor="let opt of filters.statusOptions">{{ opt }}</option>
+        @for( opt of filters.statusOptions; track $index) {<option>{{ opt }}</option>
+      }
       </select>
     </div>
 
@@ -45,7 +46,7 @@
         </thead>
 
         <tbody>
-          <tr *ngFor="let p of providers" class="row">
+          @for( p of providers; track $index){<tr class="row">
             <td>
               <div class="provider-cell">
                 <p class="provider-name">{{ p.name }}</p>
@@ -69,8 +70,9 @@
             <td>
               <div class="quality-cell">
                 <span>{{ p.quality }}</span>
-                <span *ngIf="p.qualityDot" class="quality-dot quality-dot--green">
+                @if(p.qualityDot) { <span class="quality-dot quality-dot--green">
                 </span>
+              }
               </div>
             </td>
 
@@ -78,12 +80,14 @@
 
             <td>
               <div class="actions-cell">
-                <button class="icon-button" *ngFor="let icon of actionIcons">
+                @for(icon of actionIcons; track $index) {<button class="icon-button">
                   <lucide-icon [name]="icon"></lucide-icon>
                 </button>
+              }
               </div>
             </td>
           </tr>
+        }
         </tbody>
       </table>
     </div>

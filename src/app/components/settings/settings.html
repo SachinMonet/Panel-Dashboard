@@ -78,7 +78,7 @@
 
         <div class="card-body">
           <div class="settings-list">
-            <label class="settings-item" *ngFor="let n of notificationSettings">
+           @for(n of notificationSettings; track $index;){ <label class="settings-item" >
               <input type="checkbox" class="settings-checkbox" [checked]="n.enabled"
                 (change)="onToggleNotification(n)" />
               <div>
@@ -90,6 +90,7 @@
                 </p>
               </div>
             </label>
+          }
           </div>
         </div>
       </section>
@@ -178,9 +179,10 @@
               Data Retention Period (days)
             </label>
             <select class="input-control" [(ngModel)]="dataManagement.retentionPeriod" name="retentionPeriod">
-              <option *ngFor="let opt of retentionOptions">
+            @for (opt of retentionOptions; track $index) {<option >
                 {{ opt }}
               </option>
+            }
             </select>
           </div>
 

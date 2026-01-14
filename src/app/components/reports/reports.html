@@ -15,7 +15,7 @@
       </h3>
 
       <div class="available-grid">
-        <div class="card" *ngFor="let report of availableReports">
+        @for(report of availableReports;track $index){ <div class="card">
           <div class="mb-4">
             <h4 class="card-title">
               {{ report.title }}
@@ -50,6 +50,7 @@
             <span>Generate Report</span>
           </button>
         </div>
+        }
       </div>
     </div>
 
@@ -65,9 +66,10 @@
             Report Type
           </label>
           <select class="input-control" [(ngModel)]="customReport.type" name="reportType">
-            <option *ngFor="let type of reportTypes" [value]="type.value">
+            @for( type of reportTypes;track $index){ <option [value]="type.value">
               {{ type.label }}
             </option>
+          }
           </select>
         </div>
 
@@ -87,9 +89,10 @@
             Format
           </label>
           <select class="input-control" [(ngModel)]="customReport.format" name="format">
-            <option *ngFor="let format of reportFormats" [value]="format">
+            @for (format of reportFormats; track $index) { <option [value]="format">
               {{ format }}
             </option>
+          }
           </select>
         </div>
 
@@ -135,7 +138,7 @@
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let report of recentReports">
+            @for(report of recentReports; track $index) {<tr>
               <td>
                 <span class="file-name">{{ report.fileName }}</span>
               </td>
@@ -154,6 +157,7 @@
                 </button>
               </td>
             </tr>
+          }
           </tbody>
         </table>
       </div>

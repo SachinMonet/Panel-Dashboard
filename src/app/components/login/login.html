@@ -17,10 +17,11 @@
           formControlName="email"
           placeholder="you@example.com"
         />
-        <div class="error" *ngIf="form.get('email')?.touched && form.get('email')?.invalid">
+      @if(form.get('email')?.touched && form.get('email')?.invalid){  <div class="error" >
           Please enter a valid email.
         </div>
-      </div>
+      }
+      </div> 
 
       <div class="field">
         <label>Password</label>
@@ -29,22 +30,24 @@
           formControlName="password"
           placeholder="••••••••"
         />
-        <div class="error" *ngIf="form.get('password')?.touched && form.get('password')?.invalid">
+      @if(form.get('password')?.touched && form.get('password')?.invalid){ <div class="error" >
           Password is required.
         </div>
+      }
       </div>
 
-      <div class="error global" *ngIf="error">
+    @if(error){ <div class="error global" >
         {{ error }}
       </div>
+    }
 
       <button
         class="btn-primary"
         type="submit"
         [disabled]="loading"
       >
-        <span *ngIf="!loading">Sign in</span>
-        <span *ngIf="loading" class="spinner"></span>
+       @if(!loading) {<span >Sign in</span>}
+        @if(loading){<span class="spinner"></span>}
       </button>
     </form>
 

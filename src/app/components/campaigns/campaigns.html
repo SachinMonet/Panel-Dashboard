@@ -27,17 +27,22 @@
       </div>
 
       <select class="select">
-        <option *ngFor="let opt of filters.statusOptions">{{ opt }}</option>
+      @for (opt of filters.statusOptions; track $index) {
+        <option>{{ opt }}</option>
+      }
       </select>
 
       <select class="select">
-        <option *ngFor="let opt of filters.sortOptions">{{ opt }}</option>
+      @for (opt of filters.sortOptions; track $index) {
+        <option>{{ opt }}</option>
+      }
       </select>
     </div>
 
     <!-- Cards grid -->
     <div class="campaigns-grid">
-      <div class="campaign-card" *ngFor="let c of campaigns">
+      @for (c of campaigns; track $index) {
+      <div class="campaign-card">
         <div class="campaign-card-header">
           <div class="campaign-card-title-block">
             <h3 class="campaign-name">{{ c.title }}</h3>
@@ -83,17 +88,18 @@
 
         <div class="campaign-actions">
           <!-- primary action (Pause / Resume), hidden for completed -->
-          <button *ngIf="showPrimary(c.status)" class="btn-outline-warning">
+          @if(showPrimary(c.status)){ <button class="btn-outline-warning">
             <lucide-icon [name]="primaryActionIcon(c.status)"></lucide-icon>
             <span>{{ primaryActionLabel(c.status) }}</span>
           </button>
-
+          }
           <button class="btn-outline">
             <lucide-icon name="settings"></lucide-icon>
             <span>Configure</span>
           </button>
         </div>
       </div>
+      }
     </div>
   </div>
 </main>
