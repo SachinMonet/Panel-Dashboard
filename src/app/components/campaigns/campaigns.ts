@@ -26,11 +26,12 @@ export class Campaigns implements OnInit {
     sortOptions: ['Sort by: Recent', 'Sort by: Name', 'Sort by: Progress']
   };
 
+
   campaigns: CampaignCard[] = [
     {
       title: 'Consumer Behavior Study Q1',
       code: 'C-2024-089',
-      status: 'active',
+      status: 'Active',
       progressLabel: '750 / 1000 completes',
       progressPercent: 75,
       providers: 3,
@@ -40,7 +41,7 @@ export class Campaigns implements OnInit {
     {
       title: 'Product Satisfaction Survey',
       code: 'C-2024-090',
-      status: 'active',
+      status: 'Active',
       progressLabel: '225 / 500 completes',
       progressPercent: 45,
       providers: 2,
@@ -50,7 +51,7 @@ export class Campaigns implements OnInit {
     {
       title: 'Brand Awareness Research',
       code: 'C-2024-091',
-      status: 'paused',
+      status: 'Paused',
       progressLabel: '240 / 800 completes',
       progressPercent: 30,
       providers: 2,
@@ -60,7 +61,7 @@ export class Campaigns implements OnInit {
     {
       title: 'Market Segmentation Analysis',
       code: 'C-2024-092',
-      status: 'active',
+      status: 'Active',
       progressLabel: '1080 / 1200 completes',
       progressPercent: 90,
       providers: 4,
@@ -70,7 +71,7 @@ export class Campaigns implements OnInit {
     {
       title: 'Customer Experience Feedback',
       code: 'C-2024-093',
-      status: 'completed',
+      status: 'Completed',
       progressLabel: '600 / 600 completes',
       progressPercent: 100,
       providers: 2,
@@ -82,6 +83,40 @@ export class Campaigns implements OnInit {
   constructor(private login: Login) {
 
    }
+
+   filterByStatus(status: any) {
+  status= status.value
+  if (status === 'All Status') {
+    this.filteredRows = this.campaigns;
+    return;
+  }
+
+  this.filteredRows = this.campaigns.filter(p => p.status === status);
+}
+
+sortChanged(option: any) {
+  option = option.value
+  switch (option) {
+    case 'Sort by: Name':
+      this.filteredRows = [...this.filteredRows].sort((a, b) =>
+        a.title.localeCompare(b.title)
+      );
+      break;
+
+    case 'Sort by: Progress':
+      this.filteredRows = [...this.filteredRows].sort(
+        (a, b) => a.progressPercent - b.progressPercent
+      );
+      break;
+
+    case 'Sort by: Recent':
+    default:
+      // put your "recent" logic here; for demo just keep original order
+      this.filteredRows = [...this.campaigns]; // or providers
+      break;
+  }
+}
+
 
    ngOnInit() {
     this.filteredRows = this.campaigns;
@@ -95,29 +130,29 @@ export class Campaigns implements OnInit {
 
   // actions per status
   primaryActionIcon(status: CampaignStatus): string {
-    if (status === 'paused') return 'play';
+    if (status === 'Paused') return 'play';
     return 'pause';
   }
 
   primaryActionLabel(status: CampaignStatus): string {
-    if (status === 'paused') return 'Resume';
-    if (status === 'completed') return 'View';
+    if (status === 'Paused') return 'Resume';
+    if (status === 'Completed') return 'View';
     return 'Pause';
   }
 
   showPrimary(status: CampaignStatus): boolean {
-    return status !== 'completed';
+    return status !== 'Completed';
   }
 
   badgeClass(status: CampaignStatus): string {
-    if (status === 'active') return 'badge badge--green';
-    if (status === 'paused') return 'badge badge--yellow';
+    if (status === 'Active') return 'badge badge--green';
+    if (status === 'Paused') return 'badge badge--yellow';
     return 'badge badge--blue';
   }
 
 }
 
-type CampaignStatus = 'active' | 'paused' | 'completed';
+type CampaignStatus = 'Active' | 'Paused' | 'Completed';
 
 interface CampaignCard {
   title: string;

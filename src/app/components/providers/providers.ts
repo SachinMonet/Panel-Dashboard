@@ -27,7 +27,7 @@ export class Providers {
     {
       name: 'Provider A',
       code: 'PVDR_A',
-      status: 'active',
+      status: 'Active',
       statusIcon: 'circle-check-big',
       activeCampaigns: 8,
       totalCompletes: '12,450',
@@ -38,7 +38,7 @@ export class Providers {
     {
       name: 'Provider B',
       code: 'PVDR_B',
-      status: 'active',
+      status: 'Active',
       statusIcon: 'circle-check-big',
       activeCampaigns: 6,
       totalCompletes: '8,920',
@@ -49,7 +49,7 @@ export class Providers {
     {
       name: 'Provider C',
       code: 'PVDR_C',
-      status: 'pending',
+      status: 'Pending',
       statusIcon: 'clock',
       activeCampaigns: 0,
       totalCompletes: '0',
@@ -60,7 +60,7 @@ export class Providers {
     {
       name: 'Provider D',
       code: 'PVDR_D',
-      status: 'active',
+      status: 'Active',
       statusIcon: 'circle-check-big',
       activeCampaigns: 5,
       totalCompletes: '6,780',
@@ -71,7 +71,7 @@ export class Providers {
     {
       name: 'Provider E',
       code: 'PVDR_E',
-      status: 'inactive',
+      status: 'Inactive',
       statusIcon: 'circle-x',
       activeCampaigns: 0,
       totalCompletes: '4,560',
@@ -87,15 +87,25 @@ filteredRows: any
     this.filteredRows = this.providers
   }
 
+filterByStatus(status: any) {
+  status= status.value
+  if (status === 'All Status') {
+    this.filteredRows = this.providers;
+    return;
+  }
+
+  this.filteredRows = this.providers.filter(p => p.status === status);
+}
+
   getStatusBadgeClass(status: ProviderRow['status']): string {
-    if (status === 'active') return 'badge badge--green';
-    if (status === 'pending') return 'badge badge--yellow';
+    if (status === 'Active') return 'badge badge--green';
+    if (status === 'Pending') return 'badge badge--yellow';
     return 'badge badge--gray';
   }
 
   getStatusIconClass(status: ProviderRow['status']): string {
-    if (status === 'active') return 'icon-status icon-status--green';
-    if (status === 'pending') return 'icon-status icon-status--yellow';
+    if (status === 'Active') return 'icon-status icon-status--green';
+    if (status === 'Pending') return 'icon-status icon-status--yellow';
     return 'icon-status icon-status--gray';
   }
 
@@ -113,7 +123,7 @@ filteredRows: any
 interface ProviderRow {
   name: string;
   code: string;
-  status: 'active' | 'pending' | 'inactive';
+  status: 'Active' | 'Pending' | 'Inactive';
   statusIcon: string;
   activeCampaigns: number;
   totalCompletes: string;

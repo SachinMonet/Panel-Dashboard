@@ -26,13 +26,13 @@
         <input type="text" [placeholder]="filters.searchPlaceholder" class="search-input" [(ngModel)]="searchFilterBykey" (keyup)="searchFilter($event)" />
       </div>
 
-      <select class="select">
+      <select class="select" (change)="filterByStatus($event.target)">
       @for (opt of filters.statusOptions; track $index) {
         <option>{{ opt }}</option>
       }
       </select>
 
-      <select class="select">
+      <select class="select" (change)="sortChanged($event.target)">
       @for (opt of filters.sortOptions; track $index) {
         <option>{{ opt }}</option>
       }
